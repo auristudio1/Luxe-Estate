@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeEstates - Premium Real Estate Agency</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Swiper JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#111111',
+                        accent: '#C9A74E',
+                        'accent-light': '#D4B85A',
+                        'accent-dark': '#A88B3D',
+                    },
+                    fontFamily: {
+                        'heading': ['Playfair Display', 'serif'],
+                        'body': ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px rgba(0, 0, 0, 0.08)',
+                        'hover': '0 12px 40px rgba(0, 0, 0, 0.15)',
+                        'gold': '0 4px 20px rgba(201, 167, 78, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #111111;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .font-heading {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .font-body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #C9A74E;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #A88B3D;
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .glass-dark {
+            background: rgba(17, 17, 17, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Navbar Animation */
+        .nav-scroll {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-scroll.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hero Overlay */
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+        }
+        
+        /* Card Hover Effects */
+        .property-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .property-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .property-card:hover .property-image img {
+            transform: scale(1.05);
+        }
+        
+        .property-image {
+            overflow: hidden;
+        }
+        
+        .property-image img {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Button Hover Effects */
+        .btn-primary {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        /* Section Animation */
+        .section-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        
+        .section-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Testimonial Card */
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Input Focus */
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #C9A74E;
+            box-shadow: 0 0 0 3px rgba(201, 167, 78, 0.1);
+        }
+        
+        /* Heart Animation */
+        .heart-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .heart-icon:hover {
+            transform: scale(1.2);
+        }
+        
+        .heart-icon.liked {
+            color: #E11D48;
+        }
+        
+        /* Gold Gradient Text */
+        .text-gold-gradient {
+            background: linear-gradient(135deg, #C9A74E 0%, #D4B85A 50%, #C9A74E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Image Gallery */
+        .gallery-main {
+            cursor: pointer;
+        }
+        
+        .gallery-thumb {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-thumb:hover, .gallery-thumb.active {
+            opacity: 1;
+            border-color: #C9A74E;
+        }
+        
+        /* Custom Checkbox */
+        .custom-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #E5E7EB;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .custom-checkbox:checked {
+            background: #C9A74E;
+            border-color: #C9A74E;
+        }
+        
+        /* Swiper Custom */
+        .swiper-pagination-bullet {
+            background: #C9A74E !important;
+            opacity: 0.5;
+        }
+        
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+        }
+        
+        .swiper-button-next, .swiper-button-prev {
+            color: #C9A74E !important;
+        }
+        
+        /* Skeleton Loading */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+        
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Stagger Animation */
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+        .stagger-6 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body class="font-body">
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 nav-scroll">
+        <div class="glass">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
+                    <!-- Logo -->
+                    <a href="#home" class="flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-accent flex items-center justify-center">
+                            <i data-lucide="building-2" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <span class="font-heading text-2xl font-bold text-primary">Luxe<span class="text-accent">Estates</span></span>
+                    </a>
+                    
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="#home" class="nav-link text-primary hover:text-accent transition-colors font-medium">Home</a>
+                        <a href="#properties" class="nav-link text-primary hover:text-accent transition-colors font-medium">Properties</a>
+                        <a href="#buy" class="nav-link text-primary hover:text-accent transition-colors font-medium">Buy</a>
+                        <a href="#rent" class="nav-link text-primary hover:text-accent transition-colors font-medium">Rent</a>
+                        <a href="#agents" class="nav-link text-primary hover:text-accent transition-colors font-medium">Agents</a>
+                        <a href="#blog" class="nav-link text-primary hover:text-accent transition-colors font-medium">Blog</a>
+                        <a href="#contact" class="nav-link text-primary hover:text-accent transition-colors font-medium">Contact</a>
+                    </div>
+                    
+                    <!-- Auth Buttons -->
+                    <div class="hidden md:flex items-center space-x-4">
+                        <button class="text-primary font-medium hover:text-accent transition-colors">Login</button>
+                        <button class="text-primary font-medium hover:text-accent transition-colors">Sign Up</button>
+                        <button class="btn-primary bg-accent text-white px-6 py-3 rounded-full font-medium hover:bg-accent-dark transition-colors">
+                            Post Property
+                        </button>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-btn" class="md:hidden p-2">
+                        <i data-lucide="menu" class="w-6 h-6 text-primary"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu fixed top-20 right-0 w-64 h-screen glass-dark md:hidden">
+            <div class="p-6 space-y-4">
+                <a href="#home" class="block text-white hover:text-accent transition-colors font-medium py-2">Home</a>
+                <a href="#properties" class="block text-white hover:text-accent transition-colors font-medium py-2">Properties</a>
+                <a href="#buy" class="block text-white hover:text-accent transition-colors font-medium py-2">Buy</a>
+                <a href="#rent" class="block text-white hover:text-accent transition-colors font-medium py-2">Rent</a>
+                <a href="#agents" class="block text-white hover:text-accent transition-colors font-medium py-2">Agents</a>
+                <a href="#blog" class="block text-white hover:text-accent transition-colors font-medium py-2">Blog</a>
+                <a href="#contact" class="block text-white hover:text-accent transition-colors font-medium py-2">Contact</a>
+                <hr class="border-gray-700 my-4">
+                <button class="block w-full text-left text-white hover:text-accent transition-colors font-medium py-2">Login</button>
+                <button class="block w-full text-left text-white hover:text-accent transition-colors font-medium py-2">Sign Up</button>
+                <button class="btn-primary w-full bg-accent text-white px-6 py-3 rounded-full font-medium hover:bg-accent-dark transition-colors mt-4">
+                    Post Property
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0">
+            <img src="images/luxe-Estate home img.jpg" 
+                 alt="Luxury Property" 
+                 class="w-full h-full object-cover">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto" data-aos="fade-up" data-aos-duration="1000">
+            <span class="inline-block text-accent font-medium tracking-widest uppercase mb-4">Welcome to LuxeEstates</span>
+            <h1 class="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                Find Your Dream<br>Property
+            </h1>
+            <p class="text-white/90 text-lg md:text-xl mb-10 max-w-2xl mx-auto">
+                Discover exceptional properties that define luxury living. Your perfect home awaits in the most prestigious locations.
+            </p>
+            
+            <!-- Search Bar -->
+            <div class="bg-white rounded-2xl p-4 md:p-6 shadow-soft max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <!-- Location -->
+                    <div class="relative">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">Location</label>
+                        <div class="relative">
+                            <i data-lucide="map-pin" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                            <input type="text" 
+                                   placeholder="City, State, Zip" 
+                                   class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:border-accent transition-colors">
+                        </div>
+                    </div>
+                    
+                    <!-- Property Type -->
+                    <div class="relative">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">Property Type</label>
+                        <div class="relative">
+                            <i data-lucide="home" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                            <select class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:border-accent transition-colors appearance-none bg-white">
+                                <option>All Types</option>
+                                <option>House</option>
+                                <option>Apartment</option>
+                                <option>Villa</option>
+                                <option>Penthouse</option>
+                                <option>Condo</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Price Range -->
+                    <div class="relative">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">Price Range</label>
+                        <div class="relative">
+                            <i data-lucide="dollar-sign" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                            <select class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:border-accent transition-colors appearance-none bg-white">
+                                <option>Any Price</option>
+                                <option>$100k - $300k</option>
+                                <option>$300k - $500k</option>
+                                <option>$500k - $1M</option>
+                                <option>$1M - $3M</option>
+                                <option>$3M+</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Bedrooms -->
+                    <div class="relative">
+                        <label class="block text-sm font-medium text-gray-600 mb-2">Bedrooms</label>
+                        <div class="relative">
+                            <i data-lucide="bed" class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                            <select class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:border-accent transition-colors appearance-none bg-white">
+                                <option>Any</option>
+                                <option>1+</option>
+                                <option>2+</option>
+                                <option>3+</option>
+                                <option>4+</option>
+                                <option>5+</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-primary w-full md:w-auto mt-4 bg-accent text-white px-8 py-4 rounded-xl font-semibold hover:bg-accent-dark transition-colors flex items-center justify-center gap-2">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                    Search Properties
+                </button>
+            </div>
+            
+            <!-- Stats -->
+            <div class="flex flex-wrap justify-center gap-8 md:gap-16 mt-12" data-aos="fade-up" data-aos-delay="400">
+                <div class="text-center">
+                    <div class="font-heading text-3xl md:text-4xl font-bold text-white">500+</div>
+                    <div class="text-white/70">Properties</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-heading text-3xl md:text-4xl font-bold text-white">200+</div>
+                    <div class="text-white/70">Agents</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-heading text-3xl md:text-4xl font-bold text-white">150+</div>
+                    <div class="text-white/70">Cities</div>
+                </div>
+                <div class="text-center">
+                    <div class="font-heading text-3xl md:text-4xl font-bold text-white">98%</div>
+                    <div class="text-white/70">Satisfied Clients</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="w-6 h-6 text-white/70"></i>
+        </div>
+    </section>
+
+    <!-- Featured Properties Section -->
+    <section id="properties" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="inline-block text-accent font-medium tracking-widest uppercase mb-4">Featured Listings</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-primary mb-4">Featured Properties</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Explore our handpicked selection of premium properties in the most sought-after locations.
+                </p>
+            </div>
+            
+            <!-- Property Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="property-grid">
+                <!-- Properties will be inserted here by JavaScript -->
+            </div>
+            
+            <!-- View All Button -->
+            <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="200">
+                <a href="#all-properties" class="btn-primary inline-flex items-center gap-2 border-2 border-accent text-accent px-8 py-4 rounded-full font-semibold hover:bg-accent hover:text-white transition-colors">
+                    View All Properties
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agents Section -->
+    <section id="agents" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="inline-block text-accent font-medium tracking-widest uppercase mb-4">Our Team</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-primary mb-4">Meet Our Agents</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Our experienced team of real estate professionals is dedicated to helping you find your dream property.
+                </p>
+            </div>
+            
+            <!-- Agents Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="agents-grid">
+                <!-- Agents will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-primary">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="inline-block text-accent font-medium tracking-widest uppercase mb-4">Testimonials</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-white mb-4">What Our Clients Say</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    Hear from our satisfied clients about their experience working with LuxeEstates.
+                </p>
+            </div>
+            
+            <!-- Testimonials Slider -->
+            <div class="swiper testimonial-swiper" data-aos="fade-up" data-aos-delay="200">
+                <div class="swiper-wrapper" id="testimonials-slider">
+                    <!-- Testimonials will be inserted here by JavaScript -->
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="inline-block text-accent font-medium tracking-widest uppercase mb-4">Latest News</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-primary mb-4">From Our Blog</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Stay updated with the latest real estate news, tips, and market insights.
+                </p>
+            </div>
+            
+            <!-- Blog Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="blog-grid">
+                <!-- Blog posts will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="inline-block text-accent font-medium tracking-widest uppercase mb-4">Get In Touch</span>
+                <h2 class="font-heading text-3xl md:text-5xl font-bold text-primary mb-4">Contact Us</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="bg-gray-50 rounded-2xl p-8 md:p-10" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="font-heading text-2xl font-bold text-primary mb-6">Send us a Message</h3>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                                <input type="text" 
+                                       placeholder="Your Name" 
+                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-accent transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                <input type="email" 
+                                       placeholder="Your Email" 
+                                       class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-accent transition-colors">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                            <input type="tel" 
+                                   placeholder="Your Phone Number" 
+                                   class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-accent transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea rows="5" 
+                                      placeholder="Your Message" 
+                                      class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-accent transition-colors resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary w-full bg-accent text-white px-8 py-4 rounded-xl font-semibold hover:bg-accent-dark transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Info & Map -->
+                <div data-aos="fade-up" data-aos-delay="400">
+                    <div class="bg-gray-50 rounded-2xl p-8 md:p-10 mb-8">
+                        <h3 class="font-heading text-2xl font-bold text-primary mb-6">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-accent"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-primary">Address</p>
+                                    <p class="text-gray-600">123 Luxury Lane, Beverly Hills, CA 90210</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="phone" class="w-5 h-5 text-accent"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-primary">Phone</p>
+                                    <p class="text-gray-600">+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="mail" class="w-5 h-5 text-accent"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-primary">Email</p>
+                                    <p class="text-gray-600">info@luxeestates.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i data-lucide="clock" class="w-5 h-5 text-accent"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-primary">Working Hours</p>
+                                    <p class="text-gray-600">Mon - Fri: 9:00 AM - 7:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <!-- Company Info -->
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 bg-accent flex items-center justify-center">
+                            <i data-lucide="building-2" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <span class="font-heading text-2xl font-bold">Luxe<span class="text-accent">Estates</span></span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Your trusted partner in finding luxury properties. We connect discerning buyers with exceptional homes.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-accent transition-colors">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-heading text-lg font-bold mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-accent transition-colors">Home</a></li>
+                        <li><a href="#properties" class="text-gray-400 hover:text-accent transition-colors">Properties</a></li>
+                        <li><a href="#agents" class="text-gray-400 hover:text-accent transition-colors">Agents</a></li>
+                        <li><a href="#blog" class="text-gray-400 hover:text-accent transition-colors">Blog</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-accent transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Property Categories -->
+                <div>
+                    <h4 class="font-heading text-lg font-bold mb-6">Property Categories</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Luxury Houses</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Premium Apartments</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Beachfront Villas</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Penthouses</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-accent transition-colors">Condos</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-heading text-lg font-bold mb-6">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest property updates and market insights.</p>
+                    <form class="space-y-3">
+                        <input type="email" 
+                               placeholder="Your Email" 
+                               class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:border-accent transition-colors text-white placeholder-gray-400">
+                        <button type="submit" class="w-full bg-accent text-white px-6 py-3 rounded-xl font-semibold hover:bg-accent-dark transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom -->
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2024 LuxeEstates. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-accent transition-colors text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-accent transition-colors text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-accent transition-colors text-sm">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        // Initialize AOS Animation
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+        
+        // Mock Data
+        const properties = [
+            {
+                id: 1,
+                title: "Modern Luxury Villa",
+                price: 2500000,
+                location: "Beverly Hills, CA",
+                type: "Villa",
+                bedrooms: 5,
+                bathrooms: 4,
+                area: 4500,
+                image: "images/property (villa).jpg",
+                featured: true
+            },
+            {
+                id: 2,
+                title: "Oceanfront Penthouse",
+                price: 3200000,
+                location: "Miami Beach, FL",
+                type: "Penthouse",
+                bedrooms: 4,
+                bathrooms: 3,
+                area: 3200,
+                image: "images/property (penthouse).jpg",
+                featured: true
+            },
+            {
+                id: 3,
+                title: "Historic Brownstone",
+                price: 1850000,
+                location: "Boston, MA",
+                type: "House",
+                bedrooms: 4,
+                bathrooms: 3,
+                area: 2800,
+                image: "images/property (house).jpg",
+                featured: true
+            },
+            {
+                id: 4,
+                title: "Contemporary Mansion",
+                price: 4500000,
+                location: "Malibu, CA",
+                type: "House",
+                bedrooms: 6,
+                bathrooms: 5,
+                area: 6500,
+                image: "images/property (house)2.jpg",
+                featured: true
+            },
+            {
+                id: 5,
+                title: "Downtown Luxury Apartment",
+                price: 950000,
+                location: "New York, NY",
+                type: "Apartment",
+                bedrooms: 2,
+                bathrooms: 2,
+                area: 1500,
+                image: "images/property (appartment).jpg",
+                featured: true
+            },
+            {
+                id: 6,
+                title: "Elegant Oceanview Estate",
+                price: 3800000,
+                location: "Los Angeles, CA",
+                type: "Villa",
+                bedrooms: 5,
+                bathrooms: 4,
+                area: 5200,
+                image: "images/property (villa)2.jpg",
+                featured: true
+            },
+            {
+                id: 7,
+                title: "Downtown Skyline Condo",
+                price: 4200000,
+                location: "Downtown Miami, FL",
+                type: "Condo",
+                bedrooms: 3,
+                bathrooms: 3,
+                area: 5200,
+                image: "images/property (condo).jpg",
+                featured: true
+            },
+            {
+                id: 8,
+                title: "Luxury City View Condo",
+                price: 5800000,
+                location: "Manhattan, New York, NY",
+                type: "Condo",
+                bedrooms: 4,
+                bathrooms: 3,
+                area: 6000,
+                image: "images/property (condo)2.jpg",
+                featured: true
+            },
+            {
+                id: 9,
+                title: "Elegant Private Pool Penthouse",
+                price: 7500000,
+                location: "Palm Jumeirah, Dubai, UAE",
+                type: "Penthouse",
+                bedrooms: 5,
+                bathrooms: 4,
+                area: 4000,
+                image: "images/property (penthouse)2.jpg",
+                featured: true
+            }
+        ];
+        
+        const agents = [
+            {
+                id: 1,
+                name: "Victoria Sterling",
+                role: "Senior Agent",
+                photo: "images/agent 1.jpg",
+                phone: "+1 (555) 234-5678",
+                email: "victoria@luxeestates.com",
+                social: { facebook: "#", twitter: "#", instagram: "#", linkedin: "#" }
+            },
+            {
+                id: 2,
+                name: "James Crawford",
+                role: "Luxury Specialist",
+                photo: "images/agent 2.jpg",
+                phone: "+1 (555) 345-6789",
+                email: "james@luxeestates.com",
+                social: { facebook: "#", twitter: "#", instagram: "#", linkedin: "#" }
+            },
+            {
+                id: 3,
+                name: "Sophia Martinez",
+                role: "Property Consultant",
+                photo: "images/agent 3.jpg",
+                phone: "+1 (555) 456-7890",
+                email: "sophia@luxeestates.com",
+                social: { facebook: "#", twitter: "#", instagram: "#", linkedin: "#" }
+            },
+            {
+                id: 4,
+                name: "Michael Chen",
+                role: "Investment Advisor",
+                photo: "images/agent 4.jpg",
+                phone: "+1 (555) 567-8901",
+                email: "michael@luxeestates.com",
+                social: { facebook: "#", twitter: "#", instagram: "#", linkedin: "#" }
+            }
+        ];
+        
+        const testimonials = [
+            {
+                id: 1,
+                name: "Elizabeth Thompson",
+                photo: "images/test 1.jpg",
+                rating: 5,
+                review: "LuxeEstates made finding our dream home an absolute pleasure. The team's expertise and dedication exceeded all our expectations.",
+                location: "Beverly Hills, CA"
+            },
+            {
+                id: 2,
+                name: "Robert Williams",
+                photo: "images/test 2.jpg",
+                rating: 5,
+                review: "Professional, knowledgeable, and always available. They found us the perfect investment property within our budget.",
+                location: "New York, NY"
+            },
+            {
+                id: 3,
+                name: "Sarah Johnson",
+                photo: "images/test 3.jpg",
+                rating: 5,
+                review: "The attention to detail and personalized service was outstanding. I highly recommend LuxeEstates to anyone looking for luxury properties.",
+                location: "Miami Beach, FL"
+            },
+            {
+                id: 4,
+                name: "David Anderson",
+                photo: "images/test 4.jpg",
+                rating: 5,
+                review: "Exceptional experience from start to finish. They understood exactly what we were looking for and delivered beyond our expectations.",
+                location: "Los Angeles, CA"
+            },
+            {
+                id: 5,
+                name: "Jennifer Lee",
+                photo: "images/test 5.jpg",
+                rating: 5,
+                review: "The team's expertise in the luxury market is unmatched. They made the entire process seamless and enjoyable.",
+                location: "San Francisco, CA"
+            },
+            {
+                id: 6,
+                name: "Christopher Brown",
+                photo: "images/test 6.jpg",
+                rating: 5,
+                review: "Outstanding service and professionalism. They found us a property that perfectly matches our lifestyle needs.",
+                location: "Chicago, IL"
+            }
+        ];
+        
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Top 10 Luxury Neighborhoods in 2024",
+                image: "images/blog 1.jpg",
+                description: "Discover the most prestigious neighborhoods for luxury real estate investments this year.",
+                date: "January 15, 2024",
+                author: "Victoria Sterling"
+            },
+            {
+                id: 2,
+                title: "Understanding the Luxury Real Estate Market",
+                image: "images/blog 2.jpg",
+                description: "A comprehensive guide to navigating the premium property market and making smart investments.",
+                date: "January 10, 2024",
+                author: "James Crawford"
+            },
+            {
+                id: 3,
+                title: "Interior Design Trends for Luxury Homes",
+                image: "images/blog 3.jpg",
+                description: "Explore the latest design innovations that define modern luxury living spaces.",
+                date: "January 5, 2024",
+                author: "Sophia Martinez"
+            }
+        ];
+        
+        // Format price
+        function formatPrice(price) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            }).format(price);
+        }
+        
+        // Render Properties
+        function renderProperties() {
+            const grid = document.getElementById('property-grid');
+            grid.innerHTML = properties.map((property, index) => `
+                <div class="property-card bg-white rounded-2xl overflow-hidden shadow-soft" data-aos="fade-up" data-aos-delay="${index * 100}">
+                    <div class="property-image relative">
+                        <img src="${property.image}" alt="${property.title}" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">${property.type}</span>
+                        </div>
+                        <button class="heart-icon absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-soft hover:bg-accent hover:text-white transition-colors" onclick="toggleLike(this)">
+                            <i data-lucide="heart" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="font-heading text-xl font-bold text-primary">${property.title}</h3>
+                            <span class="text-accent font-bold text-xl">${formatPrice(property.price)}</span>
+                        </div>
+                        <div class="flex items-center text-gray-500 mb-4">
+                            <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i>
+                            <span class="text-sm">${property.location}</span>
+                        </div>
+                        <div class="flex items-center justify-between py-4 border-t border-gray-100">
+                            <div class="flex items-center text-gray-500">
+                                <i data-lucide="bed" class="w-4 h-4 mr-1"></i>
+                                <span class="text-sm">${property.bedrooms} Beds</span>
+                            </div>
+                            <div class="flex items-center text-gray-500">
+                                <i data-lucide="bath" class="w-4 h-4 mr-1"></i>
+                                <span class="text-sm">${property.bathrooms} Baths</span>
+                            </div>
+                            <div class="flex items-center text-gray-500">
+                                <i data-lucide="square" class="w-4 h-4 mr-1"></i>
+                                <span class="text-sm">${property.area.toLocaleString()} sqft</span>
+                            </div>
+                        </div>
+                        <a href="#property-details" class="block w-full text-center border-2 border-accent text-accent py-3 rounded-xl font-medium hover:bg-accent hover:text-white transition-colors">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+        
+        // Render Agents
+        function renderAgents() {
+            const grid = document.getElementById('agents-grid');
+            grid.innerHTML = agents.map((agent, index) => `
+                <div class="bg-white rounded-2xl p-6 text-center shadow-soft hover:shadow-hover transition-shadow" data-aos="fade-up" data-aos-delay="${index * 100}">
+                    <div class="relative mb-6 inline-block">
+                        <img src="${agent.photo}" alt="${agent.name}" class="w-32 h-32 rounded-full object-cover mx-auto">
+                        <div class="absolute bottom-0 right-0 w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                            <i data-lucide="award" class="w-5 h-5 text-white"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-primary mb-1">${agent.name}</h3>
+                    <p class="text-accent font-medium mb-4">${agent.role}</p>
+                    <div class="space-y-2 mb-6">
+                        <div class="flex items-center justify-center text-gray-500 text-sm">
+                            <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+                            <span>${agent.phone}</span>
+                        </div>
+                        <div class="flex items-center justify-center text-gray-500 text-sm">
+                            <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+                            <span>${agent.email}</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-center space-x-3">
+                        <a href="${agent.social.facebook}" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors">
+                            <i data-lucide="facebook" class="w-4 h-4"></i>
+                        </a>
+                        <a href="${agent.social.twitter}" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </a>
+                        <a href="${agent.social.instagram}" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
+                        <a href="${agent.social.linkedin}" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors">
+                            <i data-lucide="linkedin" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+        
+        // Render Testimonials
+        function renderTestimonials() {
+            const slider = document.getElementById('testimonials-slider');
+            slider.innerHTML = testimonials.map((testimonial, index) => `
+                <div class="swiper-slide">
+                    <div class="testimonial-card bg-white/5 backdrop-blur-sm rounded-2xl p-8 mx-2">
+                        <div class="flex items-center mb-6">
+                            <img src="${testimonial.photo}" alt="${testimonial.name}" class="w-16 h-16 rounded-full object-cover mr-4">
+                            <div>
+                                <h4 class="font-heading text-lg font-bold text-white">${testimonial.name}</h4>
+                                <p class="text-gray-400 text-sm">${testimonial.location}</p>
+                            </div>
+                        </div>
+                        <div class="flex mb-4">
+                            ${Array(5).fill(0).map((_, i) => `
+                                <i data-lucide="star" class="w-5 h-5 text-accent ${i < testimonial.rating ? 'fill-current' : ''}"></i>
+                            `).join('')}
+                        </div>
+                        <p class="text-gray-300 leading-relaxed">"${testimonial.review}"</p>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+            
+            // Initialize Swiper
+            new Swiper('.testimonial-swiper', {
+                slidesPerView: 1,
+                spaceBetween: 30,
+                loop: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                breakpoints: {
+                    640: {
+                        slidesPerView: 2,
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                    }
+                }
+            });
+        }
+        
+        // Render Blog Posts
+        function renderBlogPosts() {
+            const grid = document.getElementById('blog-grid');
+            grid.innerHTML = blogPosts.map((post, index) => `
+                <div class="property-card bg-white rounded-2xl overflow-hidden shadow-soft" data-aos="fade-up" data-aos-delay="${index * 100}">
+                    <div class="property-image">
+                        <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-gray-500 text-sm mb-3">
+                            <i data-lucide="calendar" class="w-4 h-4 mr-1"></i>
+                            <span class="mr-4">${post.date}</span>
+                            <i data-lucide="user" class="w-4 h-4 mr-1"></i>
+                            <span>${post.author}</span>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-primary mb-3">${post.title}</h3>
+                        <p class="text-gray-600 text-sm mb-4">${post.description}</p>
+                        <a href="#" class="inline-flex items-center text-accent font-medium hover:text-accent-dark transition-colors">
+                            Read More
+                            <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+        
+        // Toggle Like
+        function toggleLike(button) {
+            button.classList.toggle('liked');
+            const icon = button.querySelector('i');
+            if (button.classList.contains('liked')) {
+                icon.setAttribute('data-lucide', 'heart');
+                icon.classList.add('fill-current');
+            } else {
+                icon.setAttribute('data-lucide', 'heart');
+                icon.classList.remove('fill-current');
+            }
+            lucide.createIcons();
+        }
+        
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+        
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProperties();
+            renderAgents();
+            renderTestimonials();
+            renderBlogPosts();
+        });
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
